@@ -10,6 +10,7 @@ A collection of hands-on skills for students to explore and practice when learni
 |-------|---------|
 | **browsing-with-playwright** | Browser automation using Playwright MCP. Navigate websites, fill forms, click elements, take screenshots, and extract data. Use when tasks require web browsing, form submission, web scraping, UI testing, or any browser interaction |
 | **doc-coauthoring** | Guide users through a structured workflow for co-authoring documentation including proposals, technical specs, decision docs, and similar structured content |
+| **docker** | Production-ready Docker skill for containerization with progressive complexity levels, supporting Python, Node.js, Go, and more with security best practices and CI/CD integration |
 | **docx** | Comprehensive Word document creation, editing, and analysis with support for tracked changes, comments, formatting preservation, and text extraction |
 | **fastapi-builder** | Build FastAPI projects from hello world to production-ready applications with progressive complexity levels, supporting REST APIs, microservices, database integration, authentication, and deployment configurations |
 | **fetch-library-docs** | Token-efficient library documentation fetcher for various programming languages, providing code examples, API references, and best practices |
