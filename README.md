@@ -9,15 +9,18 @@ A collection of hands-on skills for students to explore and practice when learni
 | Skill | Purpose |
 |-------|---------|
 | **browsing-with-playwright** | Browser automation using Playwright MCP. Navigate websites, fill forms, click elements, take screenshots, and extract data. Use when tasks require web browsing, form submission, web scraping, UI testing, or any browser interaction |
-| **fetch-library-docs** | Token-efficient library documentation fetcher for various programming languages, providing code examples, API references, and best practices. |
 | **doc-coauthoring** | Guide users through a structured workflow for co-authoring documentation including proposals, technical specs, decision docs, and similar structured content |
 | **docx** | Comprehensive Word document creation, editing, and analysis with support for tracked changes, comments, formatting preservation, and text extraction |
+| **fastapi-builder** | Build FastAPI projects from hello world to production-ready applications with progressive complexity levels, supporting REST APIs, microservices, database integration, authentication, and deployment configurations |
+| **fetch-library-docs** | Token-efficient library documentation fetcher for various programming languages, providing code examples, API references, and best practices |
 | **internal-comms** | Resources to help write internal communications including 3P updates, company newsletters, FAQs, status reports, leadership updates, and incident reports |
+| **interview** | Conducts discovery conversations to understand user intent and agree on approach before taking action. Prevents building the wrong thing by uncovering WHY behind WHAT through structured questioning |
 | **pdf** | PDF manipulation toolkit for extracting text and tables, creating new PDFs, merging/splitting documents, and handling forms |
 | **pptx** | PowerPoint presentation creation, editing, and analysis including layouts, speaker notes, comments, and visual design |
-| **interview** | Conducts discovery conversations to understand user intent and agree on approach before taking action. Prevents building the wrong thing by uncovering WHY behind WHAT through structured questioning |
+| **pytest** | Write and organize pytest tests for Python applications with focus on FastAPI, including test infrastructure setup, fixtures, database testing with isolation, and async test support |
 | **skill-creator** | Guide for creating effective skills that extend Claude's capabilities with specialized knowledge, workflows, or tool integrations |
 | **skill-creator-pro** | Creates production-grade, reusable skills with embedded domain expertise. Guides creation of new skills, improves existing ones, and provides patterns for 5 skill types (Builder, Guide, Automation, Analyzer, Validator) |
 | **skill-validator** | Validate any skill against production-level quality criteria. 7 weighted criteria, 0-100 scoring, actionable feedback with prioritized recommendations |
+| **sqlmodel** | Generate type-safe SQLModel implementations for FastAPI with PostgreSQL, including database models, relationships, CRUD operations, and API schemas |
 | **theme-factory** | Toolkit for styling artifacts (slides, docs, reports, HTML) with 10 pre-set professional themes or custom on-the-fly theme generation |
 | **xlsx** | Comprehensive spreadsheet creation, editing, and analysis with support for formulas, formatting, data analysis, and visualization |
