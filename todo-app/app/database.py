@@ -3,9 +3,10 @@ from typing import Annotated
 from fastapi import Depends
 from sqlmodel import SQLModel, Session, create_engine
 
-from app.config import DATABASE_URL
+from app.config import get_settings
 
-engine = create_engine(DATABASE_URL, echo=True)
+settings = get_settings()
+engine = create_engine(settings.database_url, echo=True)
 
 
 def create_db_and_tables():
