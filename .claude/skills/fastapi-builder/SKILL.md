@@ -41,6 +41,19 @@ Gather context to ensure successful implementation:
 | **Skill References** | Best practices from `references/` (security, architecture, anti-patterns) |
 | **User Guidelines** | Team conventions, coding standards, deployment targets |
 
+### Required Clarifications
+1. What complexity level do you need? (1: Hello World, 2: CRUD, 3: Auth, 4: Production, 5: Advanced)
+2. Is this a new project or adding features to an existing one?
+3. What is the main purpose/domain of the API? (e.g., e-commerce, blog, task management)
+
+### Optional Clarifications
+4. Which database? (PostgreSQL recommended, or SQLite/MongoDB)
+5. Authentication method? (JWT recommended, or OAuth2/API keys)
+6. Deployment target? (Docker, cloud platform, local only)
+7. Any specific requirements? (real-time, ML models, background tasks)
+
+*Note: Infer answers from codebase context when possible. Only ask questions that cannot be determined from existing files or conversation.*
+
 **IMPORTANT**: Ensure all required context is gathered before implementing.
 Only ask user for THEIR specific requirements (domain expertise is in this skill).
 
@@ -195,13 +208,89 @@ See `references/security-best-practices.md` for complete checklist.
 
 See `references/performance-patterns.md` for optimization guide.
 
-### Step 8: Provide Next Steps
+### Step 8: Add Testing (Level 2+)
+
+**Test Structure**:
+```
+tests/
+├── conftest.py          # Fixtures, test database setup
+├── test_main.py         # App-level tests
+├── test_routers/        # Router-specific tests
+│   └── test_items.py
+└── test_services/       # Business logic tests (Level 4+)
+```
+
+**Testing Pattern**:
+```python
+# tests/conftest.py
+import pytest
+from fastapi.testclient import TestClient
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
+
+from app.main import app
+from app.database import get_db, Base
+
+SQLALCHEMY_DATABASE_URL = "sqlite:///./test.db"
+engine = create_engine(SQLALCHEMY_DATABASE_URL)
+TestingSessionLocal = sessionmaker(bind=engine)
+
+@pytest.fixture
+def db():
+    Base.metadata.create_all(bind=engine)
+    db = TestingSessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()
+        Base.metadata.drop_all(bind=engine)
+
+@pytest.fixture
+def client(db):
+    def override_get_db():
+        yield db
+    app.dependency_overrides[get_db] = override_get_db
+    yield TestClient(app)
+    app.dependency_overrides.clear()
+```
+
+**Run tests**: `pytest -v` or `pytest --cov=app`
+
+### Step 9: Handle Edge Cases
+
+**Common Edge Cases to Address**:
+
+| Edge Case | How to Handle |
+|-----------|---------------|
+| Empty database | Return empty list `[]`, not error |
+| Resource not found | Raise `HTTPException(404)` with clear message |
+| Duplicate entry | Catch `IntegrityError`, return 409 Conflict |
+| Invalid input | Pydantic validates automatically, customize error messages |
+| Database connection failure | Use try/except, return 503 Service Unavailable |
+| Token expired | Return 401 with "Token expired" message |
+| Unauthorized access | Return 403 Forbidden (not 401) |
+| Large file uploads | Set limits in middleware, return 413 |
+| Rate limit exceeded | Return 429 Too Many Requests |
+
+**Error Response Pattern**:
+```python
+from fastapi import HTTPException
+
+# Consistent error responses
+raise HTTPException(
+    status_code=404,
+    detail={"message": "Item not found", "item_id": item_id}
+)
+```
+
+### Step 10: Provide Next Steps
 
 After implementation, guide user:
 1. How to run the application
-2. How to test endpoints (example curl/httpx commands)
-3. Where to view auto-generated docs (`/docs`, `/redoc`)
-4. Next features to add (based on current level)
+2. How to run tests (`pytest -v`)
+3. How to test endpoints (example curl/httpx commands)
+4. Where to view auto-generated docs (`/docs`, `/redoc`)
+5. Next features to add (based on current level)
 
 ---
 
@@ -320,6 +409,19 @@ settings = Settings()
 | Deployment guide | `references/deployment-guide.md` |
 | Example projects | `assets/templates/` |
 
+## Official Documentation
+
+For complex cases or latest updates, refer to official documentation:
+
+| Resource | URL | Use For |
+|----------|-----|---------|
+| FastAPI Docs | https://fastapi.tiangolo.com/ | Core framework, tutorials |
+| Pydantic v2 | https://docs.pydantic.dev/latest/ | Schema validation, settings |
+| SQLAlchemy 2.0 | https://docs.sqlalchemy.org/en/20/ | Database ORM patterns |
+| Starlette | https://www.starlette.io/ | Middleware, background tasks |
+| python-jose | https://python-jose.readthedocs.io/ | JWT implementation |
+| Alembic | https://alembic.sqlalchemy.org/ | Database migrations |
+
 ---
 
 ## Validation Checklist
@@ -349,6 +451,13 @@ Before delivering implementation, verify:
 - [ ] Proper error handling and logging
 - [ ] Docker configuration (if requested)
 - [ ] Dependencies documented (requirements.txt/pyproject.toml)
+
+**Testing** (Level 2+):
+- [ ] Test file structure created
+- [ ] Test fixtures for database isolation
+- [ ] Tests for happy path scenarios
+- [ ] Tests for error cases (404, 401, 422)
+- [ ] Test coverage > 70% (Level 4+)
 
 **Documentation**:
 - [ ] Clear docstrings on complex functions

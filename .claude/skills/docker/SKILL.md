@@ -1,3 +1,8 @@
+---
+name: docker
+description: "Production-ready Docker skill for containerization with progressive complexity levels. This skill should be used when users need to create Dockerfiles, optimize container images, implement security best practices, set up development environments with Docker Compose, or configure CI/CD pipelines for container registries."
+---
+
 # Docker Skill
 
 A production-ready Docker skill that teaches containerization progressively, supporting multiple languages (Python, Node.js, Go) with security best practices and CI/CD integration.
@@ -28,14 +33,22 @@ A production-ready Docker skill that teaches containerization progressively, sup
 
 Before generating any Dockerfile, gather this context:
 
-### Required Information
-1. **Language/Runtime**: Python, Node.js, Go, Rust, Java, etc.
-2. **Package Manager**: pip/poetry/uv, npm/yarn/pnpm, go modules
-3. **Entry Point**: How the application starts
-4. **Port(s)**: What ports need to be exposed
+### Required Clarifications
+1. What language/runtime does your application use? (Python, Node.js, Go, Rust, Java)
+2. What package manager is used? (pip/poetry/uv, npm/yarn/pnpm, go modules)
+3. How does the application start? (entry point command)
+4. What port(s) need to be exposed?
+
+### Optional Clarifications
+5. What complexity level do you need? (beginner/development/optimized/production/CI-CD)
+6. Do you need Docker Compose for local development?
+7. Which container registry will you use? (Docker Hub, GHCR, ECR)
+8. Are there any existing Docker files to maintain compatibility with?
+
+*Note: Infer answers from codebase context when possible. Only ask questions that cannot be determined from existing files.*
 
 ### Determine Complexity Level
-Ask or infer the user's needs:
+Infer from user's request or ask if unclear:
 
 | Level | Indicators | Output |
 |-------|-----------|--------|
@@ -310,6 +323,18 @@ LABEL org.opencontainers.image.title="My App" \
 | Docker Compose patterns | [compose-patterns.md](references/compose-patterns.md) |
 | Troubleshooting | [troubleshooting.md](references/troubleshooting.md) |
 | What NOT to do | [anti-patterns.md](references/anti-patterns.md) |
+
+## Official Documentation
+
+For complex cases or latest updates, refer to official documentation:
+
+| Resource | URL | Use For |
+|----------|-----|---------|
+| Dockerfile Reference | https://docs.docker.com/reference/dockerfile/ | Instruction syntax, build args |
+| Docker Compose | https://docs.docker.com/compose/ | Multi-container setup |
+| Docker Security | https://docs.docker.com/engine/security/ | Security hardening |
+| BuildKit | https://docs.docker.com/build/buildkit/ | Advanced build features |
+| Docker Hub | https://docs.docker.com/docker-hub/ | Registry workflows |
 
 ---
 
